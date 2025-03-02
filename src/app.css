@@ -5,7 +5,7 @@
 @layer base {
 
     body {
-        background-color: var(#fff);
-        color: var(#1f2937);
+        background-color: #fff;
+        color: #1f2937;
     }
 }
