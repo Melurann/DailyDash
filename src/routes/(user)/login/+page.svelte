@@ -17,14 +17,10 @@
 </script>
 
 <div class="grid h-full min-h-screen place-items-center p-8">
-	<div
-		class="w-full max-w-md rounded-lg border bg-gradient-to-b from-white to-slate-50 shadow-sm"
-	>
+	<div class="w-full max-w-md rounded-lg border bg-gradient-to-b from-white to-slate-50 shadow-sm">
 		<div class="flex flex-col space-y-1.5 p-6 pb-0">
 			<h3 class="text-lg font-semibold leading-none tracking-tight">Login</h3>
-			<p class="text-sm">
-				Enter your email and password to login to your account.
-			</p>
+			<p class="text-sm">Enter your email and password to login to your account.</p>
 		</div>
 
 		<div class="w-full p-6">
@@ -34,7 +30,7 @@
 					<legend class="text-sm font-medium">Email</legend>
 					<input
 						bind:value={email}
-						class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-input"
+						class="border-input bg-background focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
 						id="email"
 						name="email"
 						type="email"
@@ -50,7 +46,7 @@
 					<legend class="text-sm font-medium">Password</legend>
 					<input
 						bind:value={password}
-						class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-input"
+						class="border-input bg-background focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
 						id="password"
 						name="password"
 						type="password"
@@ -75,7 +71,10 @@
 					{isSubmitting ? 'Sining in...' : 'Sing In'}
 				</button>
 
-                <a href="/register">Don't have an account yet? <span class="text-primary font-medium">Create an account</span></a>
+				<a class="text-sm" href="/register"
+					>Don't have an account yet? <span class="font-medium text-primary">Create an account</span
+					></a
+				>
 			</form>
 		</div>
 	</div>
