@@ -30,7 +30,7 @@
 					<legend class="text-sm font-medium">Email</legend>
 					<input
 						bind:value={email}
-						class="border-input bg-background focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
+						class="border-input focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
 						id="email"
 						name="email"
 						type="email"
@@ -46,7 +46,7 @@
 					<legend class="text-sm font-medium">Password</legend>
 					<input
 						bind:value={password}
-						class="border-input bg-background focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
+						class="border-input focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
 						id="password"
 						name="password"
 						type="password"
