@@ -1,81 +1,71 @@
 <script lang="ts">
-	let email = '';
-	let password = '';
-	let errorMessage = '';
-	let isSubmitting = false;
+	import { schema } from '$lib/schema/schema.js';
+	import { Control, Field, FieldErrors, Label } from 'formsnap';
+	import { superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 
-	const handleSubmit = async (e: Event) => {
-		e.preventDefault();
+	let { data } = $props();
 
-		try {
-		} catch (error: any) {
-			errorMessage = error.message || 'An unknown error occurred.';
-		} finally {
-			isSubmitting = false;
-		}
-	};
+	const form = superForm(data.form, {
+		validators: zodClient(schema)
+	});
+	const { form: formData, enhance, errors } = form;
 </script>
 
-<div class="grid h-full min-h-screen place-items-center p-8">
-	<div class="w-full max-w-md rounded-lg border bg-gradient-to-b from-white to-slate-50 shadow-sm">
-		<div class="flex flex-col space-y-1.5 p-6 pb-0">
-			<h3 class="text-lg font-semibold leading-none tracking-tight">Login</h3>
-			<p class="text-sm">Enter your email and password to login to your account.</p>
-		</div>
+<div class="grid h-full min-h-screen place-items-center">
+	<div
+		class="w-full max-w-md rounded-lg border bg-gradient-to-b from-white to-slate-50 p-6 shadow-sm"
+	>
+		<form use:enhance class="flex flex-col gap-4" method="POST">
+			<div class="space-y-2">
+				<h3 class="text-lg font-semibold leading-none tracking-tight">Login</h3>
+				<p class="text-sm">Enter your email and password to login to your account.</p>
+			</div>
 
-		<div class="w-full p-6">
-			<form on:submit|preventDefault={handleSubmit} class="flex flex-col space-y-4">
-				<!-- Email Input -->
-				<fieldset class="space-y-2">
-					<legend class="text-sm font-medium">Email</legend>
-					<input
-						bind:value={email}
-						class="border-input focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
-						id="email"
-						name="email"
-						type="email"
-						aria-required="true"
-						placeholder="example@gmail.com"
-						required
-						autocomplete="email"
-					/>
+			<Field {form} name="email">
+				<fieldset class="flex flex-col gap-2">
+					<Control>
+						{#snippet children({ props })}
+							<Label class="text-sm font-medium {$errors.email ? 'text-red-700' : ''}">Email</Label>
+							<input
+								{...props}
+								type="email"
+								class="rounded-md text-sm {$errors.email ? 'border-red-700' : ''}"
+								placeholder="example@gmail.com"
+								bind:value={$formData.email}
+							/>
+						{/snippet}
+					</Control>
+					<FieldErrors class="text-sm text-red-700" />
 				</fieldset>
+			</Field>
 
-				<!-- Password Input -->
-				<fieldset class="space-y-2">
-					<legend class="text-sm font-medium">Password</legend>
-					<input
-						bind:value={password}
-						class="border-input focus:ring-input flex h-10 w-full rounded-md border px-3 py-2 text-sm focus:outline-none"
-						id="password"
-						name="password"
-						type="password"
-						aria-required="true"
-						placeholder="********"
-						required
-						autocomplete="new-password"
-					/>
+			<Field {form} name="password">
+				<fieldset class="flex flex-col gap-2">
+					<Control>
+						{#snippet children({ props })}
+							<Label class="text-sm font-medium {$errors.password ? 'text-red-700' : ''}"
+								>Password</Label
+							>
+							<input
+								{...props}
+								type="password"
+								class="rounded-md text-sm {$errors.password ? 'border-red-700' : ''}"
+								placeholder="********"
+								bind:value={$formData.password}
+							/>
+						{/snippet}
+					</Control>
+					<FieldErrors class="text-sm text-red-700" />
 				</fieldset>
+			</Field>
 
-				<!-- Error Message -->
-				{#if errorMessage}
-					<div class="text-sm font-medium text-red-400">{errorMessage}</div>
-				{/if}
+			<button class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white">Sign in</button
+			>
 
-				<!-- Submit Button -->
-				<button
-					type="submit"
-					class="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
-					disabled={isSubmitting}
-				>
-					{isSubmitting ? 'Sining in...' : 'Sing In'}
-				</button>
-
-				<a class="text-sm" href="/register"
-					>Don't have an account yet? <span class="font-medium text-primary">Create an account</span
-					></a
-				>
-			</form>
-		</div>
+			<p class="text-sm">
+				Don't have an account yet? <a class="text-primary" href="/login">Create an account</a>
+			</p>
+		</form>
 	</div>
 </div>
